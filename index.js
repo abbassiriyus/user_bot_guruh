@@ -8,18 +8,18 @@ const token = '6492572397:AAGmkt8yP7NrFhGwnUUJyxFwhlCcF1878Rs';
 // Botni yaratish
 const bot = new TelegramBot(token, { polling: true });
 
-// Guruh identifikatori
-const chatId = '-1002055646694';
-bot.on('message', (msg) => {
-    const chatId = msg.chat.id;
-    const username = msg.from.username;
-    const messageText = msg.text;
-    
-    // Foydalanuvchidan olingan ma'lumotlarni ishlatish
-    console.log(`Username: ${username}`);
-    console.log(`Message: ${messageText}`);
-    
-    // Foydalanuvchiga javob yuborish
-    bot.sendMessage(chatId, `Sizning xabaringizni qabul qildim.`);
-  });
+// Haqiqiy vaqtni olish
+function getCurrentTime() {
+    return new Date().toLocaleString();
+  }
   
+  // Botdan kelgan barcha xabarlar
+  bot.on('message', (msg) => {
+    const chatId = msg.chat.id;
+    const senderName = msg.from.first_name;
+    const messageText = msg.text;
+    const currentTime = getCurrentTime();
+  
+    // Xabarni guruhdagi a'zolarga yuborish
+    bot.sendMessage(chatId, `Yuboruvchi: ${senderName}\nXabar: ${messageText}\nVaqt: ${currentTime}`);
+  });
